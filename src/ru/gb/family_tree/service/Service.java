@@ -38,17 +38,11 @@ public class Service {
         familyTree = (FamilyTree<Human>) fileHandler.read(filePath);
     }
     public void start() {
-        // Инициализация начальными значениями
-         initialization();
-
-//        System.out.println(familyTree);
+        read();
+//      initialization();
+        sortByAge();
         System.out.println(getHumanInfo());
-
-        familyTree.sortByName();
-        System.out.println(getHumanInfo());
-
-        familyTree.sortByAge();
-        System.out.println(getHumanInfo());
+        save();
     }
 
     public void save() {
