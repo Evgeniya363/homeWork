@@ -6,10 +6,10 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTreeIterator implements Serializable, Iterator<Human> {
-    private List<Human> humanList;
+public class FamilyTreeIterator<T> implements Serializable, Iterator<T> {
+    private List<T> humanList;
     private int index;
-    public FamilyTreeIterator(List<Human> humanList){
+    public FamilyTreeIterator(List<T> humanList){
         this.humanList = humanList;
     }
     @Override
@@ -18,7 +18,7 @@ public class FamilyTreeIterator implements Serializable, Iterator<Human> {
     }
 
     @Override
-    public Human next() {
+    public T next() {
         return humanList.get(index++);
     }
 }

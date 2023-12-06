@@ -1,5 +1,7 @@
 package ru.gb.family_tree.human;
 
+import ru.gb.family_tree.family_tree.FamilyTreeItem;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Human implements Serializable, Comparable<Human> {
+public class Human implements Serializable, Comparable<Human>, FamilyTreeItem {
     private long id;
     private String name;
     final private Gender gender;
@@ -15,21 +17,20 @@ public class Human implements Serializable, Comparable<Human> {
     private Human father, mather;
     final private List<Human> children;
 
-    public Human(String name, Gender gender, LocalDate birthDate) {
-        this.id = -1;
+    public Human(Long id, String name, Gender gender, LocalDate birthDate) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.birthDate = birthDate;
         this.children = new ArrayList<>();
     }
-    public Human(String name, Gender gender, LocalDate birthDate, Human parent) {
-       this(name, gender, birthDate);
+    public Human(Long id, String name, Gender gender, LocalDate birthDate, Human parent) {
+       this(id, name, gender, birthDate);
         setParent(parent);
     }
 
-    public Human(String name, Gender gender, LocalDate birthDate, Human parent1, Human parent2) {
-        this(name, gender, birthDate, parent1);
+    public Human(Long id, String name, Gender gender, LocalDate birthDate, Human parent1, Human parent2) {
+        this(id, name, gender, birthDate, parent1);
         setParent(parent2);
     }
     public void setID(long id){
@@ -40,19 +41,19 @@ public class Human implements Serializable, Comparable<Human> {
         this.name = name;
     }
 
-    public void setParent(Human parent) {
-        if(parent.gender.equals(Gender.Female))
-            mather = parent;
+    public void setParent(Object parent) {
+        if(((Human)parent).gender.equals(Gender.Female))
+            mather = (Human)parent;
         else
-            father = parent;
-        parent.addKid(this);
+            father = (Human)parent;
+// Delete       parent.addKid(this);
     }
 
-    public void addKid(Human child) {
-        List<Human> childList = this.getChildren();
-        if (!childList.contains(child))
-            this.getChildren().add(child);
-    }
+// Delete   public void addKid(Human child) {
+//        List<Human> childList = this.getChildList();
+//        if (!childList.contains(child))
+//            this.getChildList().add(child);
+//    }
 
     public Human getMather() {
         return mather;
@@ -60,6 +61,10 @@ public class Human implements Serializable, Comparable<Human> {
 
     public Human getFather() {
         return father;
+    }
+
+    public long detId() {
+        return id;
     }
 
     public String getName() {
@@ -71,7 +76,7 @@ public class Human implements Serializable, Comparable<Human> {
         return diff.getYears();
     }
 
-    public List<Human> getChildren() {
+    public List<Human> getChildList() {
         return children;
     }
 
@@ -109,7 +114,7 @@ public class Human implements Serializable, Comparable<Human> {
     public String getChildrenInfo() {
         StringBuilder sb = new StringBuilder("children: ");
         if(getCountChildren() > 0) {
-            for(Human child: getChildren()){
+            for(Human child: getChildList()){
                 sb.append("\n\t\t");
                 sb.append(child.getHumanShortInfo());
             }
@@ -122,18 +127,18 @@ public class Human implements Serializable, Comparable<Human> {
     private int getCountChildren() {
         return children.size();
     }
-    public void addChild(Human child) {
-        Human parent = child.getMather();
-        if (parent != null)
-            if (!parent.getChildren().contains(child))
-                parent.getChildren().add(child);
-
-        parent = child.getFather();
-        if (parent != null)
-            if (!parent.getChildren().contains(child)) {
-                parent.getChildren().add(child);
-            }
-    }
+// Delete   public void addChild(Human child) {
+//        Human parent = child.getMather();
+//        if (parent != null)
+//            if (!parent.getChildList().contains(child))
+//                parent.getChildList().add(child);
+//
+//        parent = child.getFather();
+//        if (parent != null)
+//            if (!parent.getChildren().contains(child)) {
+//                parent.getChildren().add(child);
+//            }
+//    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

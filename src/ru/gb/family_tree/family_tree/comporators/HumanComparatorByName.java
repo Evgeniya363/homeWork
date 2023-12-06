@@ -1,4 +1,4 @@
-package ru.gb.family_tree.human.comporators;
+package ru.gb.family_tree.family_tree.comporators;
 
 import ru.gb.family_tree.human.Human;
 
