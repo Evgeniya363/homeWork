@@ -32,7 +32,7 @@ public class FamilyTree implements Serializable, Iterable<Human> {
         if (parent != null)
             parent.addKid(human);
 
-        parent = human.getMather();
+        parent = human.getFather();
         if (parent != null)
             parent.addKid(human);
     }
@@ -45,7 +45,7 @@ public class FamilyTree implements Serializable, Iterable<Human> {
     public String getListFamilyTree() {
         StringBuilder builder = new StringBuilder();
         builder.append("Список граждан:\n\n");
-        for (Human human : this.humanList) {
+        for (Human human : humanList) {
             builder.append(human).append(("\n"));
         }
         return builder.toString();
