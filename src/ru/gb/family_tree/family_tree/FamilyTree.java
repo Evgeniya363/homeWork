@@ -5,7 +5,7 @@ import ru.gb.family_tree.family_tree.comporators.HumanComparatorByAge;
 import java.io.Serializable;
 import java.util.*;
 
-public class FamilyTree<E extends FamilyTreeItem> implements Serializable, Iterable<E> {
+public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, Iterable<E> {
     private long humanId;
     final private List<E> humanList;
 

@@ -1,8 +1,6 @@
 package ru.gb.family_tree.service;
 
 import ru.gb.family_tree.family_tree.FamilyTree;
-import ru.gb.family_tree.family_tree.FamilyTreeItem;
-import ru.gb.family_tree.family_tree.iterator.FamilyTreeIterator;
 import ru.gb.family_tree.human.Gender;
 import ru.gb.family_tree.human.Human;
 import ru.gb.family_tree.mybuilder.MyBuilder;
@@ -30,16 +28,12 @@ public class Service {
         return human;
     }
 
-    public void appendChild(Human human, Human child){
-        familyTree.appendChild(human, child);
-    }
-
     public void read() {
         familyTree = (FamilyTree<Human>) fileHandler.read(filePath);
     }
     public void start() {
         read();
-//      initialization();
+//        initialization();
         sortByAge();
         System.out.println(getHumanInfo());
         save();
@@ -52,7 +46,7 @@ public class Service {
 
     public String getHumanInfo() {
         StringBuilder sb = new StringBuilder("Piple list:\n");
-        for (Human human: familyTree) {
+        for (Object human: familyTree) {
             sb.append(human).append("\n");
         }
         return sb.toString();

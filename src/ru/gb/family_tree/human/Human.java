@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Human implements Serializable, Comparable<Human>, FamilyTreeItem {
-    private long id;
-    private String name;
+public class Human implements Serializable, Comparable<Human>, FamilyTreeItem<Human> {
+    private final long id;
+    private final String name;
     final private Gender gender;
-    private LocalDate birthDate;
+    private final LocalDate birthDate;
     private Human father, mather;
     final private List<Human> children;
 
@@ -33,27 +33,16 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItem {
         this(id, name, gender, birthDate, parent1);
         setParent(parent2);
     }
-    public void setID(long id){
-        this.id = id;
-    }
+//    public void setID(long id){
+//        this.id = id;
+//    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setParent(Object parent) {
+    public void setParent(Human parent) {
         if(((Human)parent).gender.equals(Gender.Female))
             mather = (Human)parent;
         else
             father = (Human)parent;
-// Delete       parent.addKid(this);
     }
-
-// Delete   public void addKid(Human child) {
-//        List<Human> childList = this.getChildList();
-//        if (!childList.contains(child))
-//            this.getChildList().add(child);
-//    }
 
     public Human getMather() {
         return mather;
@@ -61,10 +50,6 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItem {
 
     public Human getFather() {
         return father;
-    }
-
-    public long detId() {
-        return id;
     }
 
     public String getName() {
@@ -103,12 +88,10 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItem {
     }
 
     public String getHumanInfo() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.getHumanShortInfo());
-        sb.append(", \n\t").append(getMatherInfo());
-        sb.append(", \n\t").append(getFatherInfo());
-        sb.append(", \n\t").append(getChildrenInfo());
-        return sb.toString();
+        return getHumanShortInfo() +
+                ", \n\t" + getMatherInfo() +
+                ", \n\t" + getFatherInfo() +
+                ", \n\t" + getChildrenInfo();
     }
 
     public String getChildrenInfo() {
@@ -127,18 +110,7 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItem {
     private int getCountChildren() {
         return children.size();
     }
-// Delete   public void addChild(Human child) {
-//        Human parent = child.getMather();
-//        if (parent != null)
-//            if (!parent.getChildList().contains(child))
-//                parent.getChildList().add(child);
-//
-//        parent = child.getFather();
-//        if (parent != null)
-//            if (!parent.getChildren().contains(child)) {
-//                parent.getChildren().add(child);
-//            }
-//    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
