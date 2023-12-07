@@ -33,15 +33,12 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItem<Hu
         this(id, name, gender, birthDate, parent1);
         setParent(parent2);
     }
-//    public void setID(long id){
-//        this.id = id;
-//    }
 
     public void setParent(Human parent) {
-        if(((Human)parent).gender.equals(Gender.Female))
-            mather = (Human)parent;
+        if(parent.gender.equals(Gender.Female))
+            mather = parent;
         else
-            father = (Human)parent;
+            father = parent;
     }
 
     public Human getMather() {

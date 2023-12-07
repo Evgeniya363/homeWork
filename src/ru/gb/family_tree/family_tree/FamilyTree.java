@@ -1,4 +1,5 @@
 package ru.gb.family_tree.family_tree;
+import ru.gb.family_tree.family_tree.comporators.HumanComparatorByName;
 import ru.gb.family_tree.family_tree.iterator.FamilyTreeIterator;
 import ru.gb.family_tree.family_tree.comporators.HumanComparatorByAge;
 
@@ -29,10 +30,7 @@ public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, It
         E parent = (E) human.getMather();
         if (parent != null)
             addKid(parent, human);
-
         parent = (E) human.getFather();
-//        if (human.getName()=="Bob")
-//            System.out.println("!");
         if (parent != null)
             addKid(parent, human);
     }
@@ -45,10 +43,6 @@ public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, It
     public void addKid(E human, E child) {
         human.getChildList().add(child);
     }
-
-//    public void setParent(E human, E child) {
-//        human.setParent(child);
-//    }
 
     public String getListFamilyTree() {
         StringBuilder builder = new StringBuilder();
@@ -70,7 +64,7 @@ public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, It
     }
 
     public void sortByName(){
-        humanList.sort(new HumanComparatorByAge<>());
+        humanList.sort(new HumanComparatorByName<>());
     }
 
     public void sortByAge(){
