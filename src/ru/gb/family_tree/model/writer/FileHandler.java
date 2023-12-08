@@ -1,6 +1,7 @@
-package ru.gb.family_tree.writer;
+package ru.gb.family_tree.model.writer;
 
-import ru.gb.family_tree.family_tree.FamilyTree;
+import ru.gb.family_tree.model.family_tree.FamilyTree;
+import ru.gb.family_tree.model.human.Human;
 
 import java.io.*;
 
@@ -12,7 +13,8 @@ public class FileHandler implements Writable
             return objectInputStream.readObject();
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+//            return null;
+            return new FamilyTree<Human>();
         }
     }
 

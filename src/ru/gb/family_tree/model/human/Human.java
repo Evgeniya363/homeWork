@@ -1,6 +1,5 @@
-package ru.gb.family_tree.human;
-
-import ru.gb.family_tree.family_tree.FamilyTreeItem;
+package ru.gb.family_tree.model.human;
+import ru.gb.family_tree.model.family_tree.FamilyTreeItem;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -35,10 +34,12 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItem<Hu
     }
 
     public void setParent(Human parent) {
-        if(parent.gender.equals(Gender.Female))
-            mather = parent;
-        else
-            father = parent;
+        if(parent != null){
+            if(parent.gender.equals(Gender.Female))
+                mather = parent;
+            else
+                father = parent;
+        }
     }
 
     public Human getMather() {
@@ -54,34 +55,41 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItem<Hu
     }
 
     public int getAge() {
-        Period diff = Period.between(birthDate, LocalDate.now());
-        return diff.getYears();
+        if (birthDate != null) {
+            Period diff = Period.between(birthDate, LocalDate.now());
+            return diff.getYears();
+        } else {
+            return -1;
+        }
     }
 
     public List<Human> getChildList() {
         return children;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
-    private Gender getGender() {
-        return gender;
+    private String getGender() {
+        if (gender.equals(Gender.Male))
+            return "муж.";
+        else
+            return "жен.";
     }
     public String getHumanShortInfo() {
-        return "id: " + id +", name: " + name + ", gender: " + gender +", age: " + getAge();
+        return "id: " + id +", имя: " + name + ", пол: " + getGender() +", возраст: " + getAge();
     }
     public String getFatherInfo() {
         if (father != null)
-            return "father: " + father.getHumanShortInfo();
+            return "отец: " + father.getHumanShortInfo();
         else
-            return "father: no data";
+            return "отец: нет данных";
     }
     public String getMatherInfo() {
         if (mather != null)
-            return "mather: " + mather.getHumanShortInfo();
+            return "мать: " + mather.getHumanShortInfo();
         else
-            return "mather: no data";
+            return "мать: нет данных";
     }
 
     public String getHumanInfo() {
@@ -92,14 +100,14 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItem<Hu
     }
 
     public String getChildrenInfo() {
-        StringBuilder sb = new StringBuilder("children: ");
+        StringBuilder sb = new StringBuilder("дети: ");
         if(getCountChildren() > 0) {
             for(Human child: getChildList()){
                 sb.append("\n\t\t");
                 sb.append(child.getHumanShortInfo());
             }
         } else {
-            sb.append("no data");
+            sb.append("нет данных");
         }
         return sb.toString();
     }

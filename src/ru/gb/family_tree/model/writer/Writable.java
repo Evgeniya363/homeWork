@@ -1,8 +1,5 @@
-package ru.gb.family_tree.writer;
+package ru.gb.family_tree.model.writer;
 
-import ru.gb.family_tree.family_tree.FamilyTree;
-
-import java.io.IOException;
 import java.io.Serializable;
 
 public interface Writable {

@@ -1,6 +1,6 @@
-package ru.gb.family_tree.family_tree.comporators;
+package ru.gb.family_tree.model.family_tree.comporators;
 
-import ru.gb.family_tree.family_tree.FamilyTreeItem;
+import ru.gb.family_tree.model.family_tree.FamilyTreeItem;
 import java.io.Serializable;
 import java.util.Comparator;
 
